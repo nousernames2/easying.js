@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Easying.js</title>
+  </head>
+  <body>
+    <div id="app">
+      <section class="full-screen-card variant-1">
+        <div class="title-wrap">
+          <h2 class="title">Easy easing</h2>
+          <div class="anim-container rounded flex">
+            <div class="ball"></div>
+          </div>
+          <h1 class="title" id="anim-characters">Easying.js</h1>
+        </div>
+        <p>A lightweight easing utility for JavaScript (10Kb minimum)</p>
+        <code class="install-cmd">pnpm add easying.js</code>
+      </section>
+      <section class="full-screen-card">
+        <div>
+          <h2 class="title">Multiple synchronous animations</h2>
+          <p>Use the helper functions to combine tweens into animations.</p>
+        </div>
+        <div class="anim-container four-squares">
+          <div class="square geometry-one"></div>
+          <div class="square geometry-one"></div>
+          <div class="square geometry-one"></div>
+          <div class="square geometry-one"></div>
+        </div>
+      </section>
+      <section class="full-screen-card">
+        <div>
+          <h2 class="title">Animate anything with callbacks</h2>
+          <p>
+            Pass in a callback function instead of an element to access animated
+            values.<br />From there you can animate anything; such as an svg
+            path.
+          </p>
+        </div>
+        <div class="anim-container rounded flex">
+          <svg width="100%" height="100%">
+            <path id="elastic-path" d="M100 10 C 100 10, 100 100, 100 190" />
+          </svg>
+        </div>
+      </section>
+      <section class="full-screen-card">
+        <div>
+          <h2 class="title">Layer & Chain</h2>
+          <p>
+            Create complex animations with a rich selection of eases from
+            <a href="https://robertpenner.com/easing/" target="_blank"
+              >Rob Penner's equations.</a
+            >
+            <br />Back, Quad, Expo, Quart and more.
+          </p>
+        </div>
+        <div class="anim-container rounded flex back-ease">
+          <div class="back-ease-bg"></div>
+          <div class="ball"></div>
+        </div>
+      </section>
+      <section class="full-screen-card">
+        <div>
+          <h2 class="title">Animate easily</h2>
+          <p>
+            Easily stagger animations with the <code>Stagger()</code> helper; Or
+            use one of the several helper functions to build complex animations
+          </p>
+          <ul>
+            <li>Stagger()</li>
+            <li>Synchronised()</li>
+            <li>Consecutive()</li>
+            <li>Loop()</li>
+          </ul>
+        </div>
+        <div class="anim-container rounded flex">
+          <div class="staggered-ball"></div>
+          <div class="staggered-ball"></div>
+          <div class="staggered-ball"></div>
+          <div class="staggered-ball"></div>
+          <div class="staggered-ball"></div>
+          <div class="staggered-ball"></div>
+          <div class="staggered-ball"></div>
+          <div class="staggered-ball"></div>
+          <div class="staggered-ball"></div>
+          <div class="staggered-ball"></div>
+        </div>
+      </section>
+      <section class="full-screen-card">
+        <div>
+          <h2 class="title">Promise based</h2>
+          <p>
+            Take full control of when to execute each tween by chaining them
+            with <code>.then()</code> or awaiting them in an
+            <code>async</code> function to create complex animations.
+          </p>
+        </div>
+        <div class="anim-container flex-both ripple-container">
+          <div class="bg-ripple"></div>
+          <div class="ripple"></div>
+          <!-- <code>
+            const ball = document.getElementById("ball") 
+            const fallingBall = easying.init(ball, { 
+              parameters: { 
+                translateY: { 
+                  start: 0, 
+                  end: 200,
+                },
+              }, 
+              ease: easeInCirc, 
+              seconds: 0.5, 
+            })
+          </code>  -->
+          <h2 class="anim-title">.then(sceneTwo)</h2>
+        </div>
+      </section>
+      <section class="easings-explained">
+        <h2 class="title">Easing Options</h2>
+        <h3 class="title">Linear</h3>
+        <div class="ease-diagram-row">
+          <div class="ease-diagram ease-diagram-linear">
+            <div class="ease-item ease-linear"></div>
+            <svg
+              id="canvas-linear"
+              viewbox="0 0 200 200"
+              width="100%"
+              height="100%"
+            >
+            </svg>
+          </div>
+        </div>
+        <h3 class="title">Sine</h3>
+        <div class="ease-diagram-row">
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-sine-in-out"></div>
+              <svg
+                id="canvas-sine-in-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInOutSine()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-sine-in"></div>
+              <svg
+                id="canvas-sine-in"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInSine()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-sine-out"></div>
+              <svg
+                id="canvas-sine-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeOutSine()</p>
+          </div>
+        </div>
+        <h3 class="title">Quad</h3>
+        <div class="ease-diagram-row">
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-quad-in-out"></div>
+              <svg
+                id="canvas-quad-in-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInOutQuad()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-quad-in"></div>
+              <svg
+                id="canvas-quad-in"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInQuad()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-quad-out"></div>
+              <svg
+                id="canvas-quad-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeOutQuad()</p>
+          </div>
+        </div>
+        <h3 class="title">Circ</h3>
+        <div class="ease-diagram-row">
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-circ-in-out"></div>
+              <svg
+                id="canvas-circ-in-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              >
+          </svg>
+            </div>
+            <p class="ease-name">easeInOutCirc()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-circ-in"></div>
+              <svg
+                id="canvas-circ-in"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInCirc()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-circ-out"></div>
+              <svg
+                id="canvas-circ-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeOutCirc()</p>
+          </div>
+        </div>
+        <h3 class="title">Cubic</h3>
+        <div class="ease-diagram-row">
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-cubic-in-out"></div>
+              <svg
+                id="canvas-cubic-in-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              >
+            </svg>
+            </div>
+            <p class="ease-name">easeInOutCubic()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-cubic-in"></div>
+              <svg
+                id="canvas-cubic-in"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInCubic()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-cubic-out"></div>
+              <svg
+                id="canvas-cubic-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeOutCubic()</p>
+          </div>
+        </div>
+        <h3 class="title">Quart</h3>
+        <div class="ease-diagram-row">
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-quart-in-out"></div>
+              <svg
+                id="canvas-quart-in-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInOutQuart()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-quart-in"></div>
+              <svg
+                id="canvas-quart-in"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInQuart()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-quart-out"></div>
+              <svg
+                id="canvas-quart-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeOutQuart()</p>
+          </div>
+        </div>
+        <h3 class="title">Quint</h3>
+        <div class="ease-diagram-row">
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-quint-in-out"></div>
+              <svg
+                id="canvas-quint-in-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInOutQuint()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-quint-in"></div>
+              <svg
+                id="canvas-quint-in"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInQuint()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-quint-out"></div>
+              <svg
+                id="canvas-quint-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeOutQuint()</p>
+          </div>
+        </div>
+        <h3 class="title">Expo</h3>
+        <div class="ease-diagram-row">
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-expo-in-out"></div>
+              <svg
+                id="canvas-expo-in-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInOutExpo()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-expo-in"></div>
+              <svg
+                id="canvas-expo-in"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInExpo()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-expo-out"></div>
+              <svg
+                id="canvas-expo-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeOutExpo()</p>
+          </div>
+        </div>
+        <h3 class="title">Bounce</h3>
+        <div class="ease-diagram-row">
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-bounce-in-out"></div>
+              <svg
+                id="canvas-bounce-in-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInOutBounce()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-bounce-in"></div>
+              <svg
+                id="canvas-bounce-in"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInBounce()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-bounce-out"></div>
+              <svg
+                id="canvas-bounce-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeOutBounce()</p>
+          </div>
+        </div>
+        <h3 class="title">Elastic</h3>
+        <div class="ease-diagram-row">
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-elastic-in-out"></div>
+              <svg
+                id="canvas-elastic-in-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInOutElastic()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-elastic-in"></div>
+              <svg
+                id="canvas-elastic-in"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInElastic()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-elastic-out"></div>
+              <svg
+                id="canvas-elastic-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeOutElastic()</p>
+          </div>
+        </div>
+        <h3 class="title">Back</h3>
+        <div class="ease-diagram-row">
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-back-in-out"></div>
+              <svg
+                id="canvas-back-in-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInOutBack()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-back-in"></div>
+              <svg
+                id="canvas-back-in"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeInBack()</p>
+          </div>
+          <div>
+            <div class="ease-diagram">
+              <div class="ease-item ease-back-out"></div>
+              <svg
+                id="canvas-back-out"
+                viewbox="0 0 200 200"
+                width="100%"
+                height="100%"
+              ></svg>
+            </div>
+            <p class="ease-name">easeOutBack()</p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script type="module" src="./demo.ts"></script>
+  </body>
+</html>
