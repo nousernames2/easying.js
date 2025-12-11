@@ -2,6 +2,9 @@
 
 Easying.js uses the easing equations written by [Robert Penner](https://github.com/danro/jquery-easing/blob/master/jquery.easing.js) and provides features for working with these equations to generate complex animations.
 
+#### Demo
+https://nousernames2.github.io/easying.js/
+
 ## Initialising
 
 - `init` or `initMany` is used to prepare an animation or tween.
