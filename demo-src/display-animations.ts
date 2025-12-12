@@ -13,7 +13,8 @@ import {
 
 const balls = document.getElementsByClassName('ball')
 const elasticPath = document.getElementById('elastic-path')
-const easying = new Easying(60)
+
+const easying = new Easying()
 
 if (balls.length) {
   const ball = balls[0]
@@ -144,7 +145,7 @@ if (squares.length) {
   const anim = Synchronised(...animations)
   const loop = Loop(anim)
 
-  loop()
+   loop()   
 }
 
 const ball3 = balls[1]
@@ -198,7 +199,7 @@ if (ball3 && bg) {
   const animation = Synchronised(element1, element2)
   const loop = Loop(animation)
 
-  loop()
+   loop()
 }
 
 const head = document.getElementById('anim-characters')
@@ -235,7 +236,7 @@ if (characters?.length && head) {
   })
 
   const staggered = Staggered(...titleSections)
-  easying.delay(0.5).then(() => staggered(0.1))
+   easying.delay(0.5).then(() => staggered(0.1))
 }
 
 if (elasticPath) {
@@ -275,7 +276,7 @@ if (elasticPath) {
   const animation = Consecutive(runPull, fire, () => easying.delay(1.5))
   const loop = Loop(animation)
 
-  loop()
+   loop()
 }
 
 const stagger = [...document.getElementsByClassName('staggered-ball')]
@@ -362,4 +363,4 @@ const anim = Consecutive(rippleAnim, () => {
   Reset(bgRipple)
 })
 const loop = Loop(anim)
-loop()
+ loop()

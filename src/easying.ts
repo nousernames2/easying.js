@@ -61,22 +61,55 @@ export class Easying {
   private elementRestingPositions: Tuple<RestingPositions>[] = []
   private paused = false
 
-  constructor(fps?: number) {
-    this.FPS = fps ?? 60
+  constructor() {
+    this.FPS = 60 // default FPS
+    this.calcFps()
+
     document.addEventListener('visibilitychange', () => {
       this.paused = document.visibilityState !== 'visible'
     })
   }
 
-  private async waitForTimedFrame(calcTimeMs: number) {
+  private async calcFps() {
     const SEC = 1000
-    const frameMs = (SEC / this.FPS)
-    const remainingMs = frameMs - calcTimeMs
-    const remainingSecs = remainingMs / SEC
-    await this.waitForTime(remainingSecs)
+
+    const then = performance.now()
+    const now = await this.waitForFrame()
+    const roughFps = SEC / (then - now)
+
+    if (roughFps < 30) {
+      this.FPS = 24
+    } else if (roughFps < 60) {
+      this.FPS = 30
+    } else {
+      this.FPS = 60
+    }
   }
 
-  private async waitForFrame() {
+  private async waitForTimedFrame(calcTimeMs: number) {
+    const SEC = 1000
+    const frameMs = SEC / this.FPS
+    const remainingMs = frameMs - calcTimeMs
+    const remainingSecs = remainingMs / SEC
+    if (remainingSecs > 0) {
+      await this.waitForTime(remainingSecs)
+    }
+  }
+
+  private async stutterDetection(ms: number) {
+    const SEC = 1000
+    const fpsFrameTime = SEC / this.FPS
+    
+    if (ms > fpsFrameTime) {
+      if (this.FPS === 30) {
+        this.FPS = 24
+      } else {
+        this.FPS-=10
+      }
+    }
+  }
+
+  private async waitForFrame(): Promise<number> {
     return new Promise((resolve) => requestAnimationFrame(resolve))
   }
 
@@ -145,7 +178,7 @@ export class Easying {
   private async generateFrames(element: Element | Function, key: UUID) {
     const animation = this.animations[key]
     const frames = animation.seconds * this.FPS
-
+    
     await this.waitForTime(animation.delay ?? 0)
 
     while (this.curFrames[key] <= frames) {
@@ -155,6 +188,7 @@ export class Easying {
         const then = performance.now()
         this.calcFrame(element, key)
         const now = performance.now()
+        this.stutterDetection(now - then)
         await this.waitForTimedFrame(now - then)
       }
     }
