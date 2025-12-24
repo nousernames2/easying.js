@@ -253,7 +253,7 @@ h1 {
   margin: 0 auto;
   border: 1px solid #f3eec0;
   background: #1a1919;
-  border-radius: 6px;
+  /* border-radius: 6px; */
 }
 
 .easings-explained .ease-diagram-row {
@@ -306,15 +306,3 @@ svg line {
   stroke-width: 1px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
