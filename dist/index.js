@@ -1,4 +1,4 @@
-class g {
+class M {
   FPS;
   curFrames = {};
   animations = {};
@@ -6,14 +6,22 @@ class g {
   currentPositions = [];
   elementRestingPositions = [];
   paused = !1;
-  constructor(n) {
-    this.FPS = n ?? 60, document.addEventListener("visibilitychange", () => {
+  constructor() {
+    this.FPS = 60, this.calcFps(), document.addEventListener("visibilitychange", () => {
       this.paused = document.visibilityState !== "visible";
     });
   }
+  async calcFps() {
+    const s = performance.now(), i = await this.waitForFrame(), e = 1e3 / (s - i);
+    e < 30 ? this.FPS = 24 : e < 60 ? this.FPS = 30 : this.FPS = 60;
+  }
   async waitForTimedFrame(n) {
     const r = (1e3 / this.FPS - n) / 1e3;
-    await this.waitForTime(r);
+    r > 0 && await this.waitForTime(r);
+  }
+  async stutterDetection(n) {
+    const i = 1e3 / this.FPS;
+    n > i && (this.FPS === 30 ? this.FPS = 24 : this.FPS -= 10);
   }
   async waitForFrame() {
     return new Promise((n) => requestAnimationFrame(n));
@@ -51,7 +59,7 @@ class g {
         const r = performance.now();
         this.calcFrame(n, s);
         const o = performance.now();
-        await this.waitForTimedFrame(o - r);
+        this.stutterDetection(o - r), await this.waitForTimedFrame(o - r);
       }
   }
   calcFrame(n, s) {
@@ -125,17 +133,17 @@ class g {
     )), delete this.curFrames[n], delete this.animations[n], delete this.receivers[n];
   }
 }
-function I(...t) {
+function g(...t) {
   return () => Promise.all(t.map((n) => n()));
 }
-function F(...t) {
+function I(...t) {
   return async (n) => {
     let s = 0;
     for (; s < t.length; )
-      t[s](), await M(n), s++;
+      t[s](), await F(n), s++;
   };
 }
-function M(t) {
+function F(t) {
   return new Promise((n) => setTimeout(n, t * 1e3));
 }
 function d(...t) {
@@ -144,7 +152,7 @@ function d(...t) {
       await t[n]();
   };
 }
-function y(t) {
+function S(t) {
   return () => {
     let n = !1;
     const s = async (i) => {
@@ -155,20 +163,20 @@ function y(t) {
     };
   };
 }
-function O(t) {
+function y(t) {
   t.style = {};
 }
-const v = function(t, n, s, i) {
+const O = function(t, n, s, i) {
   return s * (t /= i) + n;
-}, T = function(t, n, s, i) {
+}, v = function(t, n, s, i) {
   return s * (t /= i) * t + n;
-}, S = function(t, n, s, i) {
+}, T = function(t, n, s, i) {
   return -s * (t /= i) * (t - 2) + n;
 }, E = function(t, n, s, i) {
   return (t /= i / 2) < 1 ? s / 2 * t * t + n : -s / 2 * (--t * (t - 2) - 1) + n;
-}, R = function(t, n, s, i) {
-  return s * (t /= i) * t * t + n;
 }, C = function(t, n, s, i) {
+  return s * (t /= i) * t * t + n;
+}, R = function(t, n, s, i) {
   return s * ((t = t / i - 1) * t * t + 1) + n;
 }, Q = function(t, n, s, i) {
   return (t /= i / 2) < 1 ? s / 2 * t * t * t + n : s / 2 * ((t -= 2) * t * t + 2) + n;
@@ -180,17 +188,17 @@ const v = function(t, n, s, i) {
   return (t /= i / 2) < 1 ? s / 2 * t * t * t * t + n : -s / 2 * ((t -= 2) * t * t * t - 2) + n;
 }, q = function(t, n, s, i) {
   return s * (t /= i) * t * t * t * t + n;
-}, U = function(t, n, s, i) {
-  return s * ((t = t / i - 1) * t * t * t * t + 1) + n;
-}, X = function(t, n, s, i) {
-  return (t /= i / 2) < 1 ? s / 2 * t * t * t * t * t + n : s / 2 * ((t -= 2) * t * t * t * t + 2) + n;
-}, Y = function(t, n, s, i) {
-  return -s * Math.cos(t / i * (Math.PI / 2)) + s + n;
-}, j = function(t, n, s, i) {
-  return s * Math.sin(t / i * (Math.PI / 2)) + n;
-}, A = function(t, n, s, i) {
-  return -s / 2 * (Math.cos(Math.PI * t / i) - 1) + n;
 }, D = function(t, n, s, i) {
+  return s * ((t = t / i - 1) * t * t * t * t + 1) + n;
+}, U = function(t, n, s, i) {
+  return (t /= i / 2) < 1 ? s / 2 * t * t * t * t * t + n : s / 2 * ((t -= 2) * t * t * t * t + 2) + n;
+}, X = function(t, n, s, i) {
+  return -s * Math.cos(t / i * (Math.PI / 2)) + s + n;
+}, Y = function(t, n, s, i) {
+  return s * Math.sin(t / i * (Math.PI / 2)) + n;
+}, j = function(t, n, s, i) {
+  return -s / 2 * (Math.cos(Math.PI * t / i) - 1) + n;
+}, A = function(t, n, s, i) {
   return t == 0 ? n : s * Math.pow(2, 10 * (t / i - 1)) + n;
 }, L = function(t, n, s, i) {
   return t == i ? n + s : s * (-Math.pow(2, -10 * t / i) + 1) + n;
@@ -247,17 +255,17 @@ const v = function(t, n, s, i) {
 };
 export {
   d as Consecutive,
-  g as Easying,
-  y as Loop,
-  O as Reset,
-  F as Staggered,
-  I as Synchronised,
+  M as Easying,
+  S as Loop,
+  y as Reset,
+  I as Staggered,
+  g as Synchronised,
   Z as easeInBack,
   w as easeInBounce,
   G as easeInCirc,
-  R as easeInCubic,
+  C as easeInCubic,
   N as easeInElastic,
-  D as easeInExpo,
+  A as easeInExpo,
   K as easeInOutBack,
   b as easeInOutBounce,
   J as easeInOutCirc,
@@ -266,21 +274,21 @@ export {
   z as easeInOutExpo,
   E as easeInOutQuad,
   B as easeInOutQuart,
-  X as easeInOutQuint,
-  A as easeInOutSine,
-  T as easeInQuad,
+  U as easeInOutQuint,
+  j as easeInOutSine,
+  v as easeInQuad,
   $ as easeInQuart,
   q as easeInQuint,
-  Y as easeInSine,
+  X as easeInSine,
   _ as easeOutBack,
   P as easeOutBounce,
   H as easeOutCirc,
-  C as easeOutCubic,
+  R as easeOutCubic,
   V as easeOutElastic,
   L as easeOutExpo,
-  S as easeOutQuad,
+  T as easeOutQuad,
   x as easeOutQuart,
-  U as easeOutQuint,
-  j as easeOutSine,
-  v as linear
+  D as easeOutQuint,
+  Y as easeOutSine,
+  O as linear
 };

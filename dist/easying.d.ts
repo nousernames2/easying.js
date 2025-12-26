@@ -24,8 +24,10 @@ export declare class Easying {
     private currentPositions;
     private elementRestingPositions;
     private paused;
-    constructor(fps?: number);
+    constructor();
+    private calcFps;
     private waitForTimedFrame;
+    private stutterDetection;
     private waitForFrame;
     private waitForTime;
     delay(seconds: number): Promise<void>;

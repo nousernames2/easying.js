@@ -79,30 +79,14 @@ function createLineAnimation(
   ease: Ease,
   positions = { start: 0, end: 200 }
 ) {
-  let timePassed = 0
-  let lineLastVals = { x: 0, y: 0 }
+
+  let linePreviousVals = { x: 0, y: 0 }
+  let lineLatestVals = { x: 0, y: 0 }
 
   const easingDemoLine = animator.init(
     (val) => {
-      const parent = document.getElementById(canvas)
-      const linePart = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'line'
-      )
-
-      if (!Number.isNaN(val.translateY)) {
-        linePart.setAttribute('x1', `${lineLastVals.x}`)
-        linePart.setAttribute('y1', `${lineLastVals.y}`)
-
-        linePart.setAttribute('x2', `${timePassed}`)
-        linePart.setAttribute('y2', `${val.translateY}`)
-        linePart.setAttribute("stroke", "white")
-        linePart.setAttribute("stroke-width", "1")
-
-        lineLastVals.x = timePassed
-        lineLastVals.y = val.translateY
-      }
-      parent?.appendChild(linePart)
+      linePreviousVals.y = lineLatestVals.y
+      lineLatestVals.y = val.translateY
     },
     {
       parameters: {
@@ -114,7 +98,12 @@ function createLineAnimation(
   )
   const linearTimeLine = animator.init(
     (val) => {
-      timePassed = val.translateX
+      linePreviousVals.x = lineLatestVals.x
+      lineLatestVals.x = val.translateX
+
+      if (lineLatestVals.x !== linePreviousVals.x && lineLatestVals.y !== linePreviousVals.y) {
+        drawLinePart(canvas)
+      }
     },
     {
       parameters: {
@@ -128,6 +117,24 @@ function createLineAnimation(
     }
   )
 
+  function drawLinePart(canvas: string) {
+    const parent = document.getElementById(canvas)
+    const linePart = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'line'
+    )
+
+    linePart.setAttribute('x1', `${linePreviousVals.x}`)
+    linePart.setAttribute('y1', `${linePreviousVals.y}`)
+
+    linePart.setAttribute('x2', `${lineLatestVals.x}`)
+    linePart.setAttribute('y2', `${lineLatestVals.y}`)
+    linePart.setAttribute("stroke", "white")
+    linePart.setAttribute("stroke-width", "1")
+
+    parent?.appendChild(linePart)
+  }
+
   const line = Synchronised(easingDemoLine, linearTimeLine)
 
   const withDelayLine = Consecutive(
@@ -136,9 +143,10 @@ function createLineAnimation(
     () => {
       const svg = document.getElementById(canvas)
       if (svg) svg.innerHTML = ''
-      lineLastVals.x = 0
-      lineLastVals.y = 0
-      timePassed = 0
+      lineLatestVals.x = 0
+      lineLatestVals.y = 0
+      linePreviousVals.x = 0
+      linePreviousVals.y = 0
     }
   )
   return Loop(withDelayLine)
