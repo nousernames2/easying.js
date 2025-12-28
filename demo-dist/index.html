@@ -5,8 +5,8 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Easying.js</title>
-    <script type="module" crossorigin src="/assets/index-BAFKHIjw.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DGWK6997.css">
+    <script type="module" crossorigin src="./assets/index-B9wMOZj4.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-mK9j9cZ6.css">
   </head>
   <body>
     <div id="app">
@@ -18,7 +18,7 @@
           </div>
           <h1 class="title" id="anim-characters">Easying.js</h1>
         </div>
-        <p>A lightweight easing utility for JavaScript (10Kb minimum)</p>
+        <p>A lightweight easing utility for JavaScript (2Kb Gzipped)</p>
         <code class="install-cmd">pnpm add easying.js</code>
       </section>
       <section class="full-screen-card">
@@ -115,22 +115,23 @@
               ease: easeInCirc, 
               seconds: 0.5, 
             })
-          </code> -->
-          <!-- <h2 class="anim-title">.then(sceneTwo)</h2> -->
+          </code>  -->
+          <h2 class="anim-title">.then(sceneTwo)</h2>
         </div>
       </section>
       <section class="easings-explained">
-        <h2 class="title">Easing Options</h2>
+        <h2 class="title" id="tit">Easing Options</h2>
         <h3 class="title">Linear</h3>
         <div class="ease-diagram-row">
-          <div class="ease-diagram">
+          <div class="ease-diagram ease-diagram-linear">
             <div class="ease-item ease-linear"></div>
             <svg
               id="canvas-linear"
               viewbox="0 0 200 200"
               width="100%"
               height="100%"
-            ></svg>
+            >
+            </svg>
           </div>
         </div>
         <h3 class="title">Sine</h3>
@@ -221,7 +222,8 @@
                 viewbox="0 0 200 200"
                 width="100%"
                 height="100%"
-              ></svg>
+              >
+          </svg>
             </div>
             <p class="ease-name">easeInOutCirc()</p>
           </div>
@@ -260,7 +262,8 @@
                 viewbox="0 0 200 200"
                 width="100%"
                 height="100%"
-              ></svg>
+              >
+            </svg>
             </div>
             <p class="ease-name">easeInOutCubic()</p>
           </div>

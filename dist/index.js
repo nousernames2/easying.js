@@ -1,4 +1,5 @@
 class M {
+  // @ts-ignore
   FPS;
   curFrames = {};
   animations = {};
@@ -7,7 +8,7 @@ class M {
   elementRestingPositions = [];
   paused = !1;
   constructor() {
-    this.FPS = 60, this.calcFps(), document.addEventListener("visibilitychange", () => {
+    this.calcFps(), document.addEventListener("visibilitychange", () => {
       this.paused = document.visibilityState !== "visible";
     });
   }
@@ -51,6 +52,8 @@ class M {
     return i;
   }
   async generateFrames(n, s) {
+    for (; !this.FPS; )
+      await this.waitForFrame();
     const i = this.animations[s], e = i.seconds * this.FPS;
     for (await this.waitForTime(i.delay ?? 0); this.curFrames[s] <= e; )
       if (this.paused)

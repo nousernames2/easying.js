@@ -50,6 +50,7 @@ type Tuple<T> = [HTMLElement | Element | string | Function, T]
 type UUID = `${string}-${string}-${string}-${string}-${string}`
 
 export class Easying {
+  // @ts-ignore
   private FPS: number
   private curFrames: Record<string, number> = {}
   private animations: Record<string, Animation> = {}
@@ -62,7 +63,6 @@ export class Easying {
   private paused = false
 
   constructor() {
-    this.FPS = 60 // default FPS
     this.calcFps()
 
     document.addEventListener('visibilitychange', () => {
@@ -176,6 +176,10 @@ export class Easying {
   }
 
   private async generateFrames(element: Element | Function, key: UUID) {
+    while (!this.FPS) {
+      await this.waitForFrame()
+    }
+
     const animation = this.animations[key]
     const frames = animation.seconds * this.FPS
     

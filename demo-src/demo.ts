@@ -49,15 +49,16 @@ function createCircleAnimation(
   ease: Ease,
   positions = { start: 0, end: 200 }
 ) {
-  const circOutDiagram = document.getElementsByClassName(item)[0] as HTMLElement
-  const easingDemo = animator.init(circOutDiagram, {
+  const animatedElement = document.getElementsByClassName(item)[0] as HTMLElement
+
+  const easingDemo = animator.init(animatedElement, {
     parameters: {
       translateY: positions,
     },
     ease,
     seconds: 1,
   })
-  const linearTime = animator.init(circOutDiagram, {
+  const linearTime = animator.init(animatedElement, {
     parameters: {
       translateX: {
         start: 0,
@@ -405,4 +406,4 @@ function easingDemos() {
   backInOutLine()
 }
 
-easingDemos()
+document.addEventListener("DOMContentLoaded", easingDemos)
