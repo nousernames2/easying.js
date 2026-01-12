@@ -1,7 +1,7 @@
 {
   "name": "easying.js",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -33,6 +33,5 @@
     "vite": "^7.2.4",
     "vite-plugin-dts": "^4.5.4"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
