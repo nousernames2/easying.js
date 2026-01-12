@@ -1,6 +1,6 @@
 {
-  "name": "Easying.js",
-  "private": true,
+  "name": "easying.js",
+  "private": false,
   "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",
