@@ -16,7 +16,7 @@ type Animation = {
     delay?: number;
     destroyOnComplete?: boolean;
 };
-export declare class Easying {
+export default class Easying {
     private FPS;
     private curFrames;
     private animations;
@@ -41,30 +41,13 @@ export declare class Easying {
     private generateFrames;
     private calcFrame;
     private drawFrame;
+    /**
+     *
+     * @description Call this function to start the element's tween. Combine in helper functions to create complex animations
+     */
     private animate;
     private updateRestingPositions;
     private getTuple;
     private destroy;
 }
-/**
- * @params animate functions "The response from easying.init"
- * @returns Completed / Failed state
- */
-export declare function Synchronised(...tweens: Function[]): () => Promise<any[]>;
-/**
- *
- * @param tweens List of animate functions from easying.init
- * @param seconds time in seconds to stagger each animation
- * @returns
- */
-export declare function Staggered(...tweens: Function[]): (seconds: number) => Promise<void>;
-/**
- *
- * @param tweens
- */
-export declare function Consecutive(...tweens: Function[]): () => Promise<void>;
-export declare function Loop(tween: Function): () => {
-    kill: () => boolean;
-};
-export declare function Reset(element: Element): void;
 export {};

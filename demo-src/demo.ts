@@ -25,9 +25,8 @@ import {
   Loop,
   Consecutive,
   Synchronised,
-} from '../src/index'
-import {
-  Easying,
+} from '../dist/index'
+import Easying, {
   easeInCirc,
   easeInOutCirc,
   easeInOutCubic,
@@ -36,7 +35,7 @@ import {
   easeOutCubic,
   easeOutElastic,
   easeOutExpo,
-} from '../src/index'
+} from '../dist/index'
 import './display-animations'
 import './style.css'
 

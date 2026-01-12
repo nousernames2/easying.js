@@ -1,6 +1,5 @@
-import { Loop, Consecutive, Reset, Staggered, Synchronised } from '../src'
-import {
-  Easying,
+import { Loop, Consecutive, Reset, Staggered, Synchronised } from '../dist/index'
+import Easying, {
   easeInCirc,
   easeInOutCirc,
   easeInOutCubic,
@@ -9,7 +8,7 @@ import {
   easeOutCubic,
   easeOutElastic,
   easeOutExpo,
-} from '../src'
+} from '../dist/index'
 
 const balls = document.getElementsByClassName('ball')
 const elasticPath = document.getElementById('elastic-path')

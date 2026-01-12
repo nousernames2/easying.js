@@ -49,9 +49,8 @@ type Tuple<T> = [HTMLElement | Element | string | Function, T]
 
 type UUID = `${string}-${string}-${string}-${string}-${string}`
 
-export class Easying {
-  // @ts-ignore
-  private FPS: number
+export default class Easying {
+  private FPS: number = 0
   private curFrames: Record<string, number> = {}
   private animations: Record<string, Animation> = {}
   private receivers: Record<
@@ -101,7 +100,7 @@ export class Easying {
     const fpsFrameTime = SEC / this.FPS
     
     if (ms > fpsFrameTime) {
-      if (this.FPS === 30) {
+      if (this.FPS >= 30) {
         this.FPS = 24
       } else {
         this.FPS-=10
@@ -302,6 +301,10 @@ export class Easying {
     })
   }
 
+  /**
+   * 
+   * @description Call this function to start the element's tween. Combine in helper functions to create complex animations 
+   */
   private async animate(key: UUID): Promise<this> {
     const element = this.receivers[key]
 
@@ -392,72 +395,4 @@ export class Easying {
     delete this.animations[key]
     delete this.receivers[key]
   }
-}
-
-/**
- * @params animate functions "The response from easying.init"
- * @returns Completed / Failed state
- */
-export function Synchronised(...tweens: Function[]) {
-  return () => {
-    return Promise.all(tweens.map((tween) => tween()))
-  }
-}
-
-/**
- *
- * @param tweens List of animate functions from easying.init
- * @param seconds time in seconds to stagger each animation
- * @returns
- */
-export function Staggered(...tweens: Function[]) {
-  return async (seconds: number) => {
-    let count = 0
-
-    while (count < tweens.length) {
-      tweens[count]()
-      await waitFor(seconds)
-      count++
-    }
-  }
-}
-
-function waitFor(seconds: number) {
-  return new Promise((res) => setTimeout(res, seconds * 1000))
-}
-
-/**
- *
- * @param tweens
- */
-export function Consecutive(...tweens: Function[]) {
-  return async () => {
-    for (let i = 0; i < tweens.length; i++) {
-      await tweens[i]()
-    }
-  }
-}
-
-export function Loop(tween: Function) {
-  return () => {
-    let killed = false
-
-    const loop = async (func: Function) => {
-      if (killed) return
-      await func()
-
-      loop(func)
-    }
-
-    loop(tween)
-
-    return {
-      kill: () => (killed = true),
-    }
-  }
-}
-
-export function Reset(element: Element) {
-  // @ts-ignore
-  ;(element as HTMLElement).style = {}
 }
