@@ -1,14 +1,14 @@
-function M(...t) {
+function g(...t) {
   return () => Promise.all(t.map((n) => n()));
 }
-function g(...t) {
+function F(...t) {
   return async (n) => {
     let s = 0;
     for (; s < t.length; )
-      t[s](), await F(n), s++;
+      t[s](), await M(n), s++;
   };
 }
-function F(t) {
+function M(t) {
   return new Promise((n) => setTimeout(n, t * 1e3));
 }
 function I(...t) {
@@ -28,14 +28,14 @@ function d(t) {
     };
   };
 }
-function S(t) {
+function y(t) {
   t.style = {};
 }
-const y = function(t, n, s, i) {
+const O = function(t, n, s, i) {
   return s * (t /= i) + n;
-}, O = function(t, n, s, i) {
-  return s * (t /= i) * t + n;
 }, v = function(t, n, s, i) {
+  return s * (t /= i) * t + n;
+}, S = function(t, n, s, i) {
   return -s * (t /= i) * (t - 2) + n;
 }, T = function(t, n, s, i) {
   return (t /= i / 2) < 1 ? s / 2 * t * t + n : -s / 2 * (--t * (t - 2) - 1) + n;
@@ -119,7 +119,7 @@ const y = function(t, n, s, i) {
   return t < i / 2 ? w(t * 2, 0, s, i) * 0.5 + n : P(t * 2 - i, 0, s, i) * 0.5 + s * 0.5 + n;
 };
 class b {
-  FPS = 0;
+  FPS = 60;
   curFrames = {};
   animations = {};
   receivers = {};
@@ -127,14 +127,23 @@ class b {
   elementRestingPositions = [];
   paused = !1;
   constructor() {
-    this.calcFps(), document.addEventListener("visibilitychange", () => {
+    document.addEventListener("visibilitychange", () => {
       this.paused = document.visibilityState !== "visible";
     });
   }
-  async calcFps() {
-    const s = performance.now(), i = await this.waitForFrame(), e = 1e3 / (s - i);
-    e < 30 ? this.FPS = 24 : e < 60 ? this.FPS = 30 : this.FPS = 60;
-  }
+  // private async calcFps() {
+  //   const SEC = 1000
+  //   const then = performance.now()
+  //   const now = await this.waitForFrame()
+  //   const roughFps = SEC / (now - then)
+  //   if (roughFps < 30) {
+  //     this.FPS = 24
+  //   } else if (roughFps < 60) {
+  //     this.FPS = 30
+  //   } else {
+  //     this.FPS = 60
+  //   }
+  // }
   async waitForTimedFrame(n) {
     const r = (1e3 / this.FPS - n) / 1e3;
     r > 0 && await this.waitForTime(r);
@@ -171,8 +180,6 @@ class b {
     return i;
   }
   async generateFrames(n, s) {
-    for (; !this.FPS; )
-      await this.waitForFrame();
     const i = this.animations[s], e = i.seconds * this.FPS;
     for (await this.waitForTime(i.delay ?? 0); this.curFrames[s] <= e; )
       if (this.paused)
@@ -262,9 +269,9 @@ class b {
 export {
   I as Consecutive,
   d as Loop,
-  S as Reset,
-  g as Staggered,
-  M as Synchronised,
+  y as Reset,
+  F as Staggered,
+  g as Synchronised,
   b as default,
   W as easeInBack,
   w as easeInBounce,
@@ -282,7 +289,7 @@ export {
   x as easeInOutQuart,
   D as easeInOutQuint,
   Y as easeInOutSine,
-  O as easeInQuad,
+  v as easeInQuad,
   Q as easeInQuart,
   B as easeInQuint,
   U as easeInSine,
@@ -292,9 +299,9 @@ export {
   C as easeOutCubic,
   N as easeOutElastic,
   A as easeOutExpo,
-  v as easeOutQuad,
+  S as easeOutQuad,
   $ as easeOutQuart,
   q as easeOutQuint,
   X as easeOutSine,
-  y as linear
+  O as linear
 };

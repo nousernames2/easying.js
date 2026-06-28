@@ -50,7 +50,7 @@ type Tuple<T> = [HTMLElement | Element | string | Function, T]
 type UUID = `${string}-${string}-${string}-${string}-${string}`
 
 export default class Easying {
-  private FPS: number = 0
+  private FPS: number = 60
   private curFrames: Record<string, number> = {}
   private animations: Record<string, Animation> = {}
   private receivers: Record<
@@ -62,28 +62,28 @@ export default class Easying {
   private paused = false
 
   constructor() {
-    this.calcFps()
+    // this.calcFps()
 
     document.addEventListener('visibilitychange', () => {
       this.paused = document.visibilityState !== 'visible'
     })
   }
 
-  private async calcFps() {
-    const SEC = 1000
+  // private async calcFps() {
+  //   const SEC = 1000
 
-    const then = performance.now()
-    const now = await this.waitForFrame()
-    const roughFps = SEC / (then - now)
+  //   const then = performance.now()
+  //   const now = await this.waitForFrame()
+  //   const roughFps = SEC / (now - then)
 
-    if (roughFps < 30) {
-      this.FPS = 24
-    } else if (roughFps < 60) {
-      this.FPS = 30
-    } else {
-      this.FPS = 60
-    }
-  }
+  //   if (roughFps < 30) {
+  //     this.FPS = 24
+  //   } else if (roughFps < 60) {
+  //     this.FPS = 30
+  //   } else {
+  //     this.FPS = 60
+  //   }
+  // }
 
   private async waitForTimedFrame(calcTimeMs: number) {
     const SEC = 1000
@@ -175,9 +175,9 @@ export default class Easying {
   }
 
   private async generateFrames(element: Element | Function, key: UUID) {
-    while (!this.FPS) {
-      await this.waitForFrame()
-    }
+    // while (!this.FPS) {
+    //   await this.waitForFrame()
+    // }
 
     const animation = this.animations[key]
     const frames = animation.seconds * this.FPS

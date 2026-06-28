@@ -1,7 +1,7 @@
 {
   "name": "easying.js",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.1.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

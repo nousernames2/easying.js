@@ -25,7 +25,6 @@ export default class Easying {
     private elementRestingPositions;
     private paused;
     constructor();
-    private calcFps;
     private waitForTimedFrame;
     private stutterDetection;
     private waitForFrame;
