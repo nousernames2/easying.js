@@ -1,7 +1,7 @@
 function g(...t) {
   return () => Promise.all(t.map((n) => n()));
 }
-function F(...t) {
+function I(...t) {
   return async (n) => {
     let s = 0;
     for (; s < t.length; )
@@ -11,7 +11,7 @@ function F(...t) {
 function M(t) {
   return new Promise((n) => setTimeout(n, t * 1e3));
 }
-function I(...t) {
+function F(...t) {
   return async () => {
     for (let n = 0; n < t.length; n++)
       await t[n]();
@@ -35,15 +35,15 @@ const O = function(t, n, s, i) {
   return s * (t /= i) + n;
 }, v = function(t, n, s, i) {
   return s * (t /= i) * t + n;
-}, S = function(t, n, s, i) {
-  return -s * (t /= i) * (t - 2) + n;
 }, T = function(t, n, s, i) {
-  return (t /= i / 2) < 1 ? s / 2 * t * t + n : -s / 2 * (--t * (t - 2) - 1) + n;
+  return -s * (t /= i) * (t - 2) + n;
 }, E = function(t, n, s, i) {
-  return s * (t /= i) * t * t + n;
-}, C = function(t, n, s, i) {
-  return s * ((t = t / i - 1) * t * t + 1) + n;
+  return (t /= i / 2) < 1 ? s / 2 * t * t + n : -s / 2 * (--t * (t - 2) - 1) + n;
 }, R = function(t, n, s, i) {
+  return s * (t /= i) * t * t + n;
+}, S = function(t, n, s, i) {
+  return s * ((t = t / i - 1) * t * t + 1) + n;
+}, C = function(t, n, s, i) {
   return (t /= i / 2) < 1 ? s / 2 * t * t * t + n : s / 2 * ((t -= 2) * t * t + 2) + n;
 }, Q = function(t, n, s, i) {
   return s * (t /= i) * t * t * t + n;
@@ -55,17 +55,17 @@ const O = function(t, n, s, i) {
   return s * (t /= i) * t * t * t * t + n;
 }, q = function(t, n, s, i) {
   return s * ((t = t / i - 1) * t * t * t * t + 1) + n;
-}, D = function(t, n, s, i) {
-  return (t /= i / 2) < 1 ? s / 2 * t * t * t * t * t + n : s / 2 * ((t -= 2) * t * t * t * t + 2) + n;
 }, U = function(t, n, s, i) {
-  return -s * Math.cos(t / i * (Math.PI / 2)) + s + n;
+  return (t /= i / 2) < 1 ? s / 2 * t * t * t * t * t + n : s / 2 * ((t -= 2) * t * t * t * t + 2) + n;
 }, X = function(t, n, s, i) {
-  return s * Math.sin(t / i * (Math.PI / 2)) + n;
+  return -s * Math.cos(t / i * (Math.PI / 2)) + s + n;
 }, Y = function(t, n, s, i) {
-  return -s / 2 * (Math.cos(Math.PI * t / i) - 1) + n;
+  return s * Math.sin(t / i * (Math.PI / 2)) + n;
 }, j = function(t, n, s, i) {
-  return t == 0 ? n : s * Math.pow(2, 10 * (t / i - 1)) + n;
+  return -s / 2 * (Math.cos(Math.PI * t / i) - 1) + n;
 }, A = function(t, n, s, i) {
+  return t == 0 ? n : s * Math.pow(2, 10 * (t / i - 1)) + n;
+}, D = function(t, n, s, i) {
   return t == i ? n + s : s * (-Math.pow(2, -10 * t / i) + 1) + n;
 }, L = function(t, n, s, i) {
   return t == 0 ? n : t == i ? n + s : (t /= i / 2) < 1 ? s / 2 * Math.pow(2, 10 * (t - 1)) + n : s / 2 * (-Math.pow(2, -10 * --t) + 2) + n;
@@ -148,10 +148,17 @@ class b {
     const r = (1e3 / this.FPS - n) / 1e3;
     r > 0 && await this.waitForTime(r);
   }
-  async stutterDetection(n) {
-    const i = 1e3 / this.FPS;
-    n > i && (this.FPS >= 30 ? this.FPS = 24 : this.FPS -= 10);
-  }
+  // private async stutterDetection(ms: number) {
+  //   const SEC = 1000
+  //   const fpsFrameTime = SEC / this.FPS
+  //   if (ms > fpsFrameTime) {
+  //     if (this.FPS >= 30) {
+  //       this.FPS = 24
+  //     } else {
+  //       this.FPS-=10
+  //     }
+  //   }
+  // }
   async waitForFrame() {
     return new Promise((n) => requestAnimationFrame(n));
   }
@@ -188,7 +195,7 @@ class b {
         const r = performance.now();
         this.calcFrame(n, s);
         const o = performance.now();
-        this.stutterDetection(o - r), await this.waitForTimedFrame(o - r);
+        await this.waitForTimedFrame(o - r);
       }
   }
   calcFrame(n, s) {
@@ -267,41 +274,41 @@ class b {
   }
 }
 export {
-  I as Consecutive,
+  F as Consecutive,
   d as Loop,
   y as Reset,
-  F as Staggered,
+  I as Staggered,
   g as Synchronised,
   b as default,
   W as easeInBack,
   w as easeInBounce,
   z as easeInCirc,
-  E as easeInCubic,
+  R as easeInCubic,
   J as easeInElastic,
-  j as easeInExpo,
+  A as easeInExpo,
   _ as easeInOutBack,
   K as easeInOutBounce,
   H as easeInOutCirc,
-  R as easeInOutCubic,
+  C as easeInOutCubic,
   V as easeInOutElastic,
   L as easeInOutExpo,
-  T as easeInOutQuad,
+  E as easeInOutQuad,
   x as easeInOutQuart,
-  D as easeInOutQuint,
-  Y as easeInOutSine,
+  U as easeInOutQuint,
+  j as easeInOutSine,
   v as easeInQuad,
   Q as easeInQuart,
   B as easeInQuint,
-  U as easeInSine,
+  X as easeInSine,
   Z as easeOutBack,
   P as easeOutBounce,
   G as easeOutCirc,
-  C as easeOutCubic,
+  S as easeOutCubic,
   N as easeOutElastic,
-  A as easeOutExpo,
-  S as easeOutQuad,
+  D as easeOutExpo,
+  T as easeOutQuad,
   $ as easeOutQuart,
   q as easeOutQuint,
-  X as easeOutSine,
+  Y as easeOutSine,
   O as linear
 };

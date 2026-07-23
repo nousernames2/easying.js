@@ -26,7 +26,6 @@ export default class Easying {
     private paused;
     constructor();
     private waitForTimedFrame;
-    private stutterDetection;
     private waitForFrame;
     private waitForTime;
     delay(seconds: number): Promise<void>;

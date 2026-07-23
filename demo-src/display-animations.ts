@@ -39,7 +39,7 @@ function animationDemos() {
       },
       ease: easeOutCirc,
       seconds: 0.5,
-    })
+    }) 
 
     const animation = Consecutive(ball1Drop, ball1Bounce)
     const loop = Loop(animation)

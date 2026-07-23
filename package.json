@@ -1,10 +1,13 @@
 {
   "name": "easying.js",
   "private": false,
-  "version": "1.1.0",
+  "version": "1.1.2",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "output": {
+    "exports": "named"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",

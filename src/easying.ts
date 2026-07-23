@@ -95,18 +95,18 @@ export default class Easying {
     }
   }
 
-  private async stutterDetection(ms: number) {
-    const SEC = 1000
-    const fpsFrameTime = SEC / this.FPS
+  // private async stutterDetection(ms: number) {
+  //   const SEC = 1000
+  //   const fpsFrameTime = SEC / this.FPS
     
-    if (ms > fpsFrameTime) {
-      if (this.FPS >= 30) {
-        this.FPS = 24
-      } else {
-        this.FPS-=10
-      }
-    }
-  }
+  //   if (ms > fpsFrameTime) {
+  //     if (this.FPS >= 30) {
+  //       this.FPS = 24
+  //     } else {
+  //       this.FPS-=10
+  //     }
+  //   }
+  // }
 
   private async waitForFrame(): Promise<number> {
     return new Promise((resolve) => requestAnimationFrame(resolve))
@@ -191,7 +191,7 @@ export default class Easying {
         const then = performance.now()
         this.calcFrame(element, key)
         const now = performance.now()
-        this.stutterDetection(now - then)
+        // this.stutterDetection(now - then)
         await this.waitForTimedFrame(now - then)
       }
     }
